@@ -3,11 +3,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet", href="{% static 'styles.css' %}" >
-    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" >1
 </head>
 <body>
-    {% block content %}
-    {% endblock %}
+
+<header>
+      <!-- Fixed navbar -->
+      <nav class="navbar navbar-expand-md navbar-light fixed-top  " style="background-color: #c2edeb;">
+        <a class="navbar-brand" href="#">{{request.session.subject}}</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="/accounts/login/">Login <span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/accounts/signup/">SignUp</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+<br>
+<br>
+<br>
+<div class="content container">
+    <div class="row">
+        <div class="col-md-8">
+                <div class="post">
+                    <div class="date">
+                    </div>
+                    {% block content %}
+                    {% endblock %}
+                </div>
+        </div>
+    </div>
+</div>
+
+
+
 </body>
 </html>

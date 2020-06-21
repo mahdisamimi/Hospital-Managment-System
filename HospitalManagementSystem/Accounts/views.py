@@ -44,9 +44,12 @@ def signup(request):
                 mail_subject, mail_massage, to=[form.cleaned_data.get('email')]
             )
             email.send()
-            return redirect('account_activation_sent')
+            request.session['subject'] = 'Account Activation'
+            request.session['massage'] = 'An email has been sent to' + form.cleaned_data.get('email') + '.\n'
+            return render(request, 'massage.html')
     else:
         form = forms.DoctorSignUpForm()
+        request.session['subject'] = 'Signup'
     return render(request, 'signup.html', {'form': form})
 
 
@@ -58,9 +61,14 @@ def login(request):
         if user is not None:
             if user.is_active:
                 auth_login(request, user)
-                return render(request, 'login.html', {'form':'CONNNNNNNNNNNECT'})
+                request.session["subject"] = "Login massage"
+                request.session.update( {"massage": "Logged in successfully.\n"})
+                return render(request, 'massage.html')
+
         else:
-            return render(request, 'login.html', {'form': 'ERRORRRRRRR'})
+            error = 'Username or Password Incorrect!'
+            form = AuthenticationForm()
+            return render(request, 'login.html', {'error':error, 'form':form})
     else:
         form = AuthenticationForm()
         return render(request, 'login.html', {'form':form})
