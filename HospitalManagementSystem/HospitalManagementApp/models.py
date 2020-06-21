@@ -45,7 +45,7 @@ class doctor(models.Model):
 def update_user_doctor(sender, instance, created, **kwargs):
     if created:
         doctor.objects.create(user=instance)
-    instance.doctor.save()
+    #instance.doctor.save()
 class relation_doctor_hospital(models.Model):
     id = models.IntegerField(primary_key=True)
     doctor_id = models.ForeignKey(doctor,on_delete=models.CASCADE)

@@ -1,4 +1,5 @@
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login as auth_login, authenticate
+from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from HospitalManagementApp import forms, models
 from django.contrib.sites.shortcuts import get_current_site
@@ -9,7 +10,8 @@ from HospitalManagementApp.token import account_activation_token
 from django.core.mail import EmailMessage
 from django.contrib.auth.models import User
 
-
+def render_dashboard(user):
+    print('asg')
 
 
 def signup(request):
@@ -49,10 +51,22 @@ def signup(request):
 
 
 def login(request):
-    pass
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                auth_login(request, user)
+                return render(request, 'login.html', {'form':'CONNNNNNNNNNNECT'})
+        else:
+            return render(request, 'login.html', {'form': 'ERRORRRRRRR'})
+    else:
+        form = AuthenticationForm()
+        return render(request, 'login.html', {'form':form})
 
 def account_activation_sent(request):
-    render('base_layout.html', {})
+    return render(request, 'login.html', {'form':form})
 
 def activate(request, uidb64, token):
     try:
@@ -65,7 +79,7 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.doctor.email_confirmed = True
         user.save()
-        login(user)
+        auth_login(request, user)
         return redirect('home')
     else:
         return render(request, 'account_activation_invalid.html')
