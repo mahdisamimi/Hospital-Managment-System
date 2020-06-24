@@ -22,6 +22,7 @@ from Accounts import views
 
 
 urlpatterns = [
+    url('', include('HospitalManagementApp.urls')),
     url('admin/', admin.site.urls),
     url(r'^accounts/', include('Accounts.urls')),
     url(r'^account_activation_sent/$', views.account_activation_sent, name='account_activation_sent'),

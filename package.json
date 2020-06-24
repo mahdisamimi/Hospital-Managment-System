@@ -1,0 +1,35 @@
+{
+  "name": "Hospital-Managment-System2",
+  "version": "1.0.0",
+  "description": "Hospital Managment System (Software Engineering Project)",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development --watch ./HospitalManagementSystem/HospitalManagementApp/src/index.js --output ./HospitalManagementSystem/HospitalManagementApp/static/main.js",
+    "build": "webpack --mode production ./HospitalManagementSystem/HospitalManagementApp/src/index.js --output ./HospitalManagementSystem/HospitalManagementApp/static/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mahdisamimi/Hospital-Managment-System.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mahdisamimi/Hospital-Managment-System/issues"
+  },
+  "homepage": "https://github.com/mahdisamimi/Hospital-Managment-System#readme",
+  "devDependencies": {
+    "@babel/core": "^7.10.3",
+    "@babel/preset-env": "^7.10.3",
+    "@babel/preset-react": "^7.10.1",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}
