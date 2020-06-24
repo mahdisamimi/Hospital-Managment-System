@@ -13,5 +13,5 @@ cd HospitalManagementSystem
 #run server : 
 python manage.py runserver
 
-#Run webpack (from root)
+#Run webpack (from root) : 
 npm run dev
