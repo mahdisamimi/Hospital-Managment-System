@@ -3,16 +3,6 @@
 
 {% block content %}
 <section class="container-fluid bg">
-                <section class="row justify-content-center ">
-                    <section class="col-12 col-sm-6 col-md-3 header">
-                        <div class="{% if request.path == 'accounts:login' %} btn-outline-info {% endif %}">
-                            <input class="btn-info login" type="button" onclick="location.href='/accounts/login/';" value="Login" />
-                            <input class="btn-outline-info login"  type="button" onclick="location.href='/accounts/signup/';" value="SignUp" />
-                        </div>
-
-                    </section>
-                </section>
-            </section>
     <img class="wave" src="{% static 'img/wave.png' %}">
 	<div class="container">
 		<div class="img">
@@ -22,6 +12,14 @@
             <section class="container-fluid bg">
                 <section class="row justify-content-center ">
                     <section class="col-12 col-sm-6 col-md-3 form-container">
+                         <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a class="nav-link {% if request.session.subject == 'Login' %} active {% endif %}" href="{% url 'accounts:login' %}">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link {% if request.session.subject == 'Signup' %} active {% endif %}" href="{% url 'accounts:signup' %}" >Signup</a>
+                            </li>
+                        </ul>
                         {% block sign %}
                         {% endblock %}
                     </section>

@@ -61,19 +61,22 @@ def login(request):
         if user is not None:
             if user.is_active:
                 auth_login(request, user)
-                request.session["subject"] = "Login massage"
+                request.session['subject'] = 'Login'
                 request.session.update( {"massage": "Logged in successfully.\n"})
                 return render(request, 'massage.html')
 
         else:
+            request.session['subject'] = 'Login'
             error = 'Username or Password Incorrect!'
             form = AuthenticationForm()
             return render(request, 'login.html', {'error':error, 'form':form})
     else:
+        request.session['subject'] = 'Login'
         form = AuthenticationForm()
         return render(request, 'login.html', {'form':form})
 
 def account_activation_sent(request):
+    request.session['subject'] = 'Login'
     form = AuthenticationForm()
     return render(request, 'login.html', {'form':form})
 
