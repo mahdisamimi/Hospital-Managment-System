@@ -1,15 +1,17 @@
 {% extends 'hospital/homebase.html' %}
 {% load static %}
-<!--
-written By : sumit kumar
-facebook : fb.com/sumit.luv
--->
 
 
 {% block content %}
 
 
 <head>
+<link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css" integrity="sha384-vus3nQHTD+5mpDiZ4rkEPlnkcyTP+49BhJ4wJeJunw06ZAp+wzzeBPUXr42fi8If" crossorigin="anonymous">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://cdn.rtlcss.com/bootstrap/v4.2.1/js/bootstrap.min.js" integrity="sha384-a9xOd0rz8w0J8zqj1qJic7GPFfyMfoiuDjC9rqXlVOcGO/dmRqzMn34gZYDTel8k" crossorigin="anonymous"></script>
+
   <style media="screen">
     .jumbotron {
       margin-top: 0px;
@@ -51,30 +53,20 @@ facebook : fb.com/sumit.luv
     }
   </style>
 </head>
+
 <br>
 <br>
 
 <div class="jumbotron" style="margin-bottom: 0px;margin-top: 0px;">
-  <br>
-  <h5 class="display-3 glow">You’ll Love the Way We Care for You</h5>
   <br><br><br><br><br>
-  <p>
-  <h3>Emergency ?</h3>
+  {% include "hospital/admin_doctor_patient_card.html" %}
 
-  <p class="lead">
-    <a class="btn btn-primary btn-lg" href="/patientclick" role="button">Take Appointment</a>
-  </p>
-  <br><br>
 </div>
 
 <br><br><br><br>
 
-{% include "hospital/admin_doctor_patient_card.html" %}
+
 <br><br><br>
-<!--
-developed By : sumit kumar
-facebook : fb.com/sumit.luv
-youtube : youtube.com/lazycoders
--->
+
 
 {% endblock content %}
