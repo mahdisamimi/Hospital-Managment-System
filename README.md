@@ -15,3 +15,9 @@ python manage.py runserver
 
 #Run webpack (from root) : 
 npm run dev
+
+#requirement
+Django
+django-widget-tweaks
+sqlparse
+xhtml2pdf
