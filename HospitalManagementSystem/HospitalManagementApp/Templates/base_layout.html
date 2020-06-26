@@ -1,6 +1,4 @@
 {% load static  %}
-{% url 'login' as login %}
-{% url 'signup' as signup %}
 
 
 <!DOCTYPE  html>
@@ -9,7 +7,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static 'css\bootstrap.css' %}" >
     <link rel="stylesheet" type="text/css" href="{% static 'css\login.css' %}">
-	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family =Poppins:600&display=swap" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
@@ -68,12 +66,12 @@
 <section class="container-fluid bg">
                 <section class="row justify-content-center ">
                     <section class="col-12 col-sm-6 col-md-3 header">
-                        <div class="login {% if request.path == login %} activet {% endif %}">
-                            <a href="{% url 'login' %}">Login</a>
+                        <div class="login {% if request.path == 'accounts:login' %} activet {% endif %}">
+                            <a href="{% url 'accounts:login' %}">Login</a>
 
                         </div>
-                        <div class="signup {% if request.path == signup %} activet {% endif %}">
-                            <a href="{% url 'signup' %}">Signup</a>
+                        <div class="signup {% if request.path == 'accounts:signup' %} activet {% endif %}">
+                            <a href="{% url 'accounts:signup' %}">Signup</a>
                         </div>
                     </section>
                 </section>
