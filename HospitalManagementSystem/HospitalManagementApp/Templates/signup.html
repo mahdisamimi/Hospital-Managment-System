@@ -2,22 +2,25 @@
 
 
 {% block content %}
-<h2><a href="">Signup</a></h2>
+
   <form method="post">
     {% csrf_token %}
     <p style="color: red">{{ error_massage }}</p>
     {% for field in form %}
-      <p>
+      <p class="field">
         {{ field.label_tag }}<br>
         {{ field }}
+        <div class="help-text">
         {% if field.help_text %}
           <small style="color: grey">{{ field.help_text }}</small>
         {% endif %}
+          </div>
+
         {% for error in field.errors %}
           <p style="color: red">{{ error }}</p>
         {% endfor %}
       </p>
     {% endfor %}
-    <button class="btn btn-outline-primary" type="submit">Sign up</button>
+    <button class="btn btn-primary" type="submit">Sign up</button>
   </form>
 {% endblock %}

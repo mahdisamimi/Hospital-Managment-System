@@ -1,23 +1,26 @@
 {% extends 'base_layout.html' %}
 
 {% block content %}
-<h2><a href="">Login</a></h2>
+<h2 class="field"><a href="">Login</a></h2>
   <form class="site-form" action="{%url 'accounts:login' %}" method="post">
     {% csrf_token %}
     <p style="color: red">{{ error }}</p>
       {% for field in form %}
-      <p>
+      <p class="field">
+
         {{ field.label_tag }}<br>
         {{ field }}
-        {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %}
+        <div class="help-text">
+          {% if field.help_text %}
+            <small style="color: grey">{{ field.help_text }}</small>
+          {% endif %}
+        </div>
         {% for error in field.errors %}
           <p style="color: red">{{ error }}</p>
         {% endfor %}
       </p>
     {% endfor %}
-
-    <button class="btn btn-outline-primary" type="submit">Login</button>
+    <a href="#">Forgot Password?</a>
+    <button class="btn btn-primary " type="submit">Login</button>
   </form>
 {% endblock %}

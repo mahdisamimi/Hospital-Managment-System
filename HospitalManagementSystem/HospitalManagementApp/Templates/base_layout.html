@@ -1,48 +1,101 @@
 {% load static  %}
+{% url 'login' as login %}
+{% url 'signup' as signup %}
+
+
 <!DOCTYPE  html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" >1
+    <link rel="stylesheet" href="{% static 'css\bootstrap.css' %}" >
+    <link rel="stylesheet" type="text/css" href="{% static 'css\login.css' %}">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body{
+            background-color: #fff;
+            width: 100%;
+            height: 100%;
+            background-size: 100%;
+        }
+        .form-container{
+            position: absolute;
+            top: 15vh;
+            width: 80%;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px #000;
+        }
+        .header{
+            position: absolute;
+            top: 30px;
+            margin-left: 307px;
+            width: 80%;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px #000;
+        }
+    </style>
 </head>
 <body>
 
-<header>
-      <!-- Fixed navbar -->
-      <nav class="navbar navbar-expand-md navbar-light fixed-top  " style="background-color: #c2edeb;">
-        <a class="navbar-brand" href="#">{{request.session.subject}}</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="/accounts/login/">Login <span class="sr-only"></span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/accounts/signup/">SignUp</a>
-            </li>
-          </ul>
-        </div>
-      </nav>
-    </header>
+<!--<header>-->
+<!--      &lt;!&ndash; Fixed navbar &ndash;&gt;-->
+<!--      <nav class="navbar navbar-expand-md navbar-light fixed-top  " style="background-color: #c2edeb;">-->
+<!--        <a class="navbar-brand" href="#">{{request.session.subject}}</a>-->
+<!--        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--          <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
+<!--        <div class="collapse navbar-collapse" id="navbarCollapse">-->
+<!--          <ul class="navbar-nav mr-auto">-->
+<!--            <li class="nav-item active">-->
+<!--              <a class="nav-link" href="/accounts/login/">Login <span class="sr-only"></span></a>-->
+<!--            </li>-->
+<!--            <li class="nav-item">-->
+<!--              <a class="nav-link" href="/accounts/signup/">SignUp</a>-->
+<!--            </li>-->
+<!--          </ul>-->
+<!--        </div>-->
+<!--      </nav>-->
+<!--    </header>-->
 
 <br>
 <br>
 <br>
-<div class="content container">
-    <div class="row">
-        <div class="col-md-8">
-                <div class="post">
-                    <div class="date">
-                    </div>
-                    {% block content %}
-                    {% endblock %}
-                </div>
+<section class="container-fluid bg">
+                <section class="row justify-content-center ">
+                    <section class="col-12 col-sm-6 col-md-3 header">
+                        <div class="login {% if request.path == login %} activet {% endif %}">
+                            <a href="{% url 'login' %}">Login</a>
+
+                        </div>
+                        <div class="signup {% if request.path == signup %} activet {% endif %}">
+                            <a href="{% url 'signup' %}">Signup</a>
+                        </div>
+                    </section>
+                </section>
+            </section>
+    <img class="wave" src="{% static 'img/wave.png' %}">
+	<div class="container">
+		<div class="img">
+			<img src="{% static 'img/bg.svg' %}">
+		</div>
+		<div class="login-content">
+            <section class="container-fluid bg">
+                <section class="row justify-content-center ">
+                    <section class="col-12 col-sm-6 col-md-3 form-container">
+                        {% block content %}
+                        {% endblock %}
+                    </section>
+                </section>
+            </section>
+
         </div>
     </div>
-</div>
-
+    <script type="text/javascript" src=" {% static 'js/main.js' %}"></script>
 
 
 </body>
