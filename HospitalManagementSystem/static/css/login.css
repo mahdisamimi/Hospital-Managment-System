@@ -1,28 +1,12 @@
 .login{
-	width: 50%;
+	width: 48%;
 	text-align: center;
 	float: left;
-	background-color: #9F9C99;
-	border-radius: 10px;
+	border-radius: 5px;
+	margin: 2px;
 
-	border-right: 1px solid black;
 }
-.login:hover{
-	width: 50%;
-	text-align: center;
-	float: left;
-	background-color: #343148;
-	color: white;
-}
-.login a{
-	color: black;
-	width: 100%;
-	padding: 0px 60px 0px 60px;
-}
-.login a:hover{
-	text-decoration: none;
-	color: white;
-}
+
 
 .signup{
 	width: 50%;
@@ -33,22 +17,7 @@
 
 	/*border-right: 2px solid black;*/
 }
-.signup:hover{
-	width: 50%;
-	text-align: center;
-	float: left;
-	background-color: #343148;
-	color: white;
-}
-.signup a{
-	color: black;
-	width: 100%;
-	padding: 0px 60px 0px 60px;
-}
-.signup a:hover{
-	text-decoration: none;
-	color: white;
-}
+
 .activet{
 	width: 50%;
 	text-align: center;
@@ -225,6 +194,7 @@ form{
 .btn{
 	text-align: center;
 	display: block;
+	margin-top: -50px;
 	width: 50%;
 	height: 50px;
 	border-radius: 25px;
