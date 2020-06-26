@@ -7,15 +7,15 @@
   <div class="row">
     <div class="panel panel-primary col-md-5" style="margin-left:2%;">
       <div class="panel-heading" style="text-align:center;">
-        <h6 class="panel-title">Recent Doctors</h6>
+        <h6 class="panel-title">دکتر های اخیرا اضافه شده</h6>
       </div>
       <table class="table table-hover" id="dev-table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Department</th>
-            <th>Mobile</th>
-            <th>Status</th>
+            <th>نام</th>
+            <th>بخش</th>
+            <th>شماره تماس</th>
+            <th>وضعیت</th>
 
           </tr>
         </thead>
@@ -25,9 +25,9 @@
           <td>{{d.department}}</td>
           <td>{{d.mobile}}</td>
           {%if d.status%}
-          <td> <span class="label label-primary">Permanent</span></td>
+          <td> <span class="label label-primary">مجوز داده شده</span></td>
           {% else %}
-          <td> <span class="label label-success">On Hold</span></td>
+          <td> <span class="label label-success">در حال انتظار</span></td>
           {% endif %}
 
         </tr>
@@ -37,16 +37,16 @@
 
     <div class="panel panel-primary col-md-5" style="margin-left:5%;">
       <div class="panel-heading" style="text-align:center;">
-        <h6 class="panel-title">Recent Patient</h6>
+        <h6 class="panel-title">بیماران اخیر</h6>
       </div>
       <table class="table table-hover" id="dev-table">
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Symptoms</th>
-            <th>Mobile</th>
-            <th>Address</th>
-            <th>Status</th>
+            <th>نام</th>
+            <th>علائم</th>
+            <th>شماره تماس</th>
+            <th>آدرس</th>
+            <th>وضعیت</th>
 
           </tr>
         </thead>
@@ -57,9 +57,9 @@
           <td>{{p.mobile}}</td>
           <td>{{p.address}}</td>
           {%if p.status%}
-          <td> <span class="label label-primary">Admitted</span></td>
+          <td> <span class="label label-primary">تایید شده</span></td>
           {% else %}
-          <td> <span class="label label-success">On Hold</span></td>
+          <td> <span class="label label-success">در حال انتظار</span></td>
           {% endif %}
 
         </tr>
