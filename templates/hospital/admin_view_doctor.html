@@ -3,9 +3,9 @@
 {%load static%}
 
 <head>
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   <style media="screen">
     a:link {
@@ -19,28 +19,28 @@
     .row {
       margin: 100px;
     }
+    .menu {
+      top: 50px;
+    }
   </style>
 </head>
-<!--
-written By : sumit kumar
-facebook : fb.com/sumit.luv
--->
+<br></br>
 <div class="container">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h6 class="panel-title">Doctors</h6>
+      <h6 class="panel-title">پزشک ها</h6>
     </div>
     <table class="table table-hover" id="dev-table">
       <thead>
         <tr>
 
-          <th>Name</th>
-          <th>Profile Picture</th>
-          <th>Mobile</th>
-          <th>Address</th>
-          <th>Department</th>
-          <th>Update</th>
-          <th>Delete</th>
+          <th>نام</th>
+          <th>عکس</th>
+          <th>شماره تماس</th>
+          <th>آدرس</th>
+          <th>بخش</th>
+          <th>آپدیت</th>
+          <th>حذف</th>
         </tr>
       </thead>
       {% for d in doctors %}

@@ -54,39 +54,39 @@
   <div class="container register-form">
     <div class="form">
       <div class="note">
-        <p>Admit Patient To Hospital</p>
+        <p>اضافه کردن بیمار به بیمارستان</p>
       </div>
       <div class="form-content">
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              {% render_field userForm.first_name class="form-control" placeholder="First Name" %}
+              {% render_field userForm.first_name class="form-control" placeholder="نام" %}
             </div>
             <div class="form-group">
-              {% render_field userForm.username class="form-control" placeholder="Username" %}
+              {% render_field userForm.username class="form-control" placeholder="نام کاربری" %}
             </div>
             <div class="form-group">
-              {% render_field patientForm.address class="form-control" placeholder="Address" %}
+              {% render_field patientForm.address class="form-control" placeholder="آدرس" %}
             </div>
             <div class="form-group">
-              {% render_field patientForm.symptoms class="form-control" placeholder="Symptoms" %}
+              {% render_field patientForm.symptoms class="form-control" placeholder="بیماری" %}
             </div>
             <div class="form-group">
-              {% render_field patientForm.profile_pic required="required" class="form-control" placeholder="Profile Picture" %}
+              {% render_field patientForm.profile_pic required="required" class="form-control" placeholder="عکس" %}
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              {% render_field userForm.last_name class="form-control" placeholder="Last Name" %}
+              {% render_field userForm.last_name class="form-control" placeholder="نام خانوادگی" %}
             </div>
             <div class="form-group">
-              {% render_field userForm.password class="form-control" placeholder="Password" %}
+              {% render_field userForm.password class="form-control" placeholder="پسورد" %}
             </div>
             <div class="form-group">
-              {% render_field patientForm.mobile  class="form-control" placeholder="Mobile" %}
+              {% render_field patientForm.mobile  class="form-control" placeholder="موبایل" %}
             </div>
             <div class="form-group">
-              {% render_field patientForm.assignedDoctorId class="form-control" placeholder="Doctor" %}
+              {% render_field patientForm.assignedDoctorId class="form-control" placeholder="پزشک" %}
             </div>
           </div>
         </div>

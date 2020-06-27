@@ -4,7 +4,6 @@
 
 <head>
   <meta charset="utf-8">
-  <title>A simple, clean, and responsive HTML invoice template</title>
 
   <style>
     .invoice-box {
@@ -120,14 +119,14 @@
         <table>
           <tr>
             <td class="title">
-              <h1>Hospital Management</h1>
+              <h1>پنل کاربری</h1>
             </td>
 
             <td>
 
-              Admit Date: {{admitDate}}<br>
-              Release Date: {{releaseDate}}<br>
-              Days Spent: {{daySpent}}
+              تاریخ پذیرش: {{admitDate}}<br>
+              تاریخ ترخیص: {{releaseDate}}<br>
+              روز های سپری شده: {{daySpent}}
             </td>
           </tr>
         </table>
@@ -139,13 +138,13 @@
         <table>
           <tr>
             <td>
-              Patient Name : {{patientName}}<br>
-              Patient Mobile : {{mobile}}<br>
-              Patient Addres : {{address}}<br>
+              نام بیمار : {{patientName}}<br>
+              شماره تماس بیمار : {{mobile}}<br>
+              آدرس بیمار : {{address}}<br>
             </td>
 
             <td>
-              Doctor Name :<br>
+              نام پزشک :<br>
               {{assignedDoctorName}}<br>
 
             </td>
@@ -156,7 +155,7 @@
 
     <tr class="heading">
       <td>
-        Disease and Symptoms
+        بیماری و علائم
       </td>
       <td>
 
@@ -171,17 +170,17 @@
     </tr>
     <tr class="heading">
       <td>
-        Item
+        آیتم
       </td>
 
       <td>
-        Price
+        هزینه
       </td>
     </tr>
 
     <tr class="item">
       <td>
-        Room Charge of {{daySpent}} Days
+        هزینه {{daySpent}} روز بستری
       </td>
 
       <td>
@@ -191,7 +190,7 @@
 
     <tr class="item">
       <td>
-        Doctor Fee
+        هزینه پزشک
       </td>
 
       <td>
@@ -201,7 +200,7 @@
 
     <tr class="item">
       <td>
-        Medicine Cost
+        هزینه دارو
       </td>
 
       <td>
@@ -211,7 +210,7 @@
 
     <tr class="item last">
       <td>
-        Other Charge
+        سایر هزینه ها
       </td>
 
       <td>
@@ -223,28 +222,20 @@
       <td></td>
 
       <td>
-        Total Rupees : {{total}}
+        کل هزینه ها : {{total}}
       </td>
     </tr>
 
   </table>
 </div>
 <br><br>
-<div class="download">
-  <a style="background:red; width:500px;" href="{% url 'download-pdf' patientId  %}">Download</a>
-</div>
 
 
 
 {%else%}
-<h5 style="text-align:center;">You Are Not Discharged By Hospital !</h5>
-<h5 style="text-align:center;">Your Treatment Is Going On !</h5><br><br>
-<h6 style="text-align:center;">When You Will Be Discahrged. You Can Download Invoice.</h6>
+<h5 style="text-align:center;">شما ترخیص نشده اید !</h5>
+<h5 style="text-align:center;">فرآیند بهبودی شما در حال انجام است !</h5><br><br>
 {%endif%}
-<!--
-developed By : sumit kumar
-facebook : fb.com/sumit.luv
-youtube : youtube.com/lazycoders
--->
+
 
 {% endblock content %}

@@ -118,14 +118,14 @@
         <table>
           <tr>
             <td class="title">
-              <h1>Hospital Management</h1>
+              <h1>پنل کاربری</h1>
             </td>
 
             <td>
 
-              Admit Date: {{admitDate}}<br>
-              Release Date: {{todayDate}}<br>
-              Days Spent: {{day}}
+              تاریخ بستری: {{admitDate}}<br>
+              تاریخ ترخیص: {{todayDate}}<br>
+              روز های سپری شده: {{day}}
             </td>
           </tr>
         </table>
@@ -137,13 +137,13 @@
         <table>
           <tr>
             <td>
-              Patient Name : {{name}}<br>
-              Patient Mobile : {{mobile}}<br>
-              Patient Addres : {{address}}<br>
+              نام بیمار : {{name}}<br>
+              شماره تماس بیمار : {{mobile}}<br>
+              آدرس بیمار : {{address}}<br>
             </td>
 
             <td>
-              Doctor Name :<br>
+              نام پزشک :<br>
               {{assignedDoctorName}}<br>
 
             </td>
@@ -154,7 +154,7 @@
 
     <tr class="heading">
       <td>
-        Disease and Symptoms
+        بیماری و علائم
       </td>
       <td>
 
@@ -169,17 +169,17 @@
     </tr>
     <tr class="heading">
       <td>
-        Item
+        آیتم
       </td>
 
       <td>
-        Price
+        قیمت
       </td>
     </tr>
 
     <tr class="item">
       <td>
-        Room Charge of {{day}} Days
+        هزینه {{day}} روز بستری
       </td>
 
       <td>
@@ -189,7 +189,7 @@
 
     <tr class="item">
       <td>
-        Doctor Fee
+        هزینه پزشک
       </td>
 
       <td>
@@ -199,7 +199,7 @@
 
     <tr class="item">
       <td>
-        Medicine Cost
+        هزینه دارو
       </td>
 
       <td>
@@ -209,7 +209,7 @@
 
     <tr class="item last">
       <td>
-        Other Charge
+        سایر هزینه ها
       </td>
 
       <td>
@@ -221,20 +221,14 @@
       <td></td>
 
       <td>
-        Total Rupees : {{total}}
+        کل هزینه : {{total}}
       </td>
     </tr>
 
   </table>
 </div>
 <br><br>
-<div class="download">
-  <a style="background:red; width:500px;" href="{% url 'download-pdf' patientId  %}">Download</a>
-</div>
-<!--
-developed By : sumit kumar
-facebook : fb.com/sumit.luv
-youtube : youtube.com/lazycoders
--->
+
+
 
 {% endblock content %}

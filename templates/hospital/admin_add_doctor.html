@@ -54,41 +54,41 @@
   <div class="container register-form">
     <div class="form">
       <div class="note">
-        <p>Add New Doctor To Hospital</p>
+        <p>اضافه کردن دکتر جدید به بیمارستان</p>
       </div>
       <div class="form-content">
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              {% render_field userForm.first_name class="form-control" placeholder="First Name" %}
+              {% render_field userForm.first_name class="form-control" placeholder="نام" %}
             </div>
             <div class="form-group">
-              {% render_field userForm.username class="form-control" placeholder="Username" %}
+              {% render_field userForm.username class="form-control" placeholder="نام کاربری" %}
             </div>
             <div class="form-group">
-              {% render_field doctorForm.department class="form-control" placeholder="Department" %}
+              {% render_field doctorForm.department class="form-control" placeholder="بخش" %}
             </div>
             <div class="form-group">
-              {% render_field doctorForm.address class="form-control" placeholder="Address" %}
+              {% render_field doctorForm.address class="form-control" placeholder="آدرس" %}
             </div>
 
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              {% render_field userForm.last_name class="form-control" placeholder="Last Name" %}
+              {% render_field userForm.last_name class="form-control" placeholder="نام خانوادگی" %}
             </div>
             <div class="form-group">
-              {% render_field userForm.password class="form-control" placeholder="Password" %}
+              {% render_field userForm.password class="form-control" placeholder="پسورد" %}
             </div>
             <div class="form-group">
-              {% render_field doctorForm.mobile class="form-control"  placeholder="Mobile" %}
+              {% render_field doctorForm.mobile class="form-control"  placeholder="شماره تماس" %}
             </div>
             <div class="form-group">
               {% render_field doctorForm.profile_pic required="required" class="form-control" placeholder="Profile Picture" %}
             </div>
           </div>
         </div>
-        <button type="submit" class="btnSubmit">Register</button>
+        <button type="submit" class="btnSubmit">ثبت</button>
       </div>
     </div>
   </div>
