@@ -3,13 +3,17 @@
 {% block content %}
 {% csrf_token %}
 <h2><a href="">{{request.session.subject}}</a></h2>
-    <div class="card">
-  <div class="card-header">
-    {{subject}}
-  </div>
-  <div class="card-body">
-    <h4 class="card-title"></h4>
-    <p class="card-text">{{session.massage}}</p>
-  </div>
+<div class="card">
+    <div class="card-header">
+        {{subject}}
+    </div>
+    <div class="card-body">
+        <h4 class="card-title"></h4>
+        <p class="card-text">{{session.massage}}</p>
+    </div>
+    <div class="card-body">
+        <h4 class="card-title"></h4>
+        <p class="card-text">{{doctor.first_name}}</p>
+    </div>
 </div>
 {% endblock %}

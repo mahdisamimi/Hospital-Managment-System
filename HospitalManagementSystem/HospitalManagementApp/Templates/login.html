@@ -2,7 +2,7 @@
 
 {% block sign %}
 <h2 class="field"></h2>
-  <form class="site-form" action="{%url 'accounts:login' %}" method="post">
+  <form class="site-form form-group" action="{%url 'accounts:login' %}" method="post">
     {% csrf_token %}
     <p style="color: red">{{ error }}</p>
       {% for field in form %}
