@@ -9,9 +9,9 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from HospitalManagementApp.token import account_activation_token
 from django.core.mail import EmailMessage
 from HospitalManagementApp.models import base_user
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
-def render_dashboard(user):
-    print('asg')
 
 
 def signup(request):
@@ -118,11 +118,9 @@ def login(request):
                 request.session.update( {"massage": "Logged in successfully.\n"})
                 ath_user = base_user.objects.get(username=username)
                 if ath_user.user_type == 2:
-                    doctor = ath_user.doctor
-                    return render(request, 'app/base_site.html', {'user':doctor, 'user type':'Doctor'})
+                    return redirect(reverse('accounts:dashboard'))
                 elif ath_user.user_type == 3:
-                    clerk = ath_user.clerk
-                    return render(request, 'app/base_site.html', {'user': clerk, 'user type':'Clerk'})
+                    return redirect(reverse('accounts:dashboard'))
                 else:
                     pass #user is admin
             else:
@@ -164,3 +162,13 @@ def activate(request, uidb64, token):
         return redirect('accounts:login')
     else:
         return render(request, 'account_activation_invalid.html')
+
+@login_required
+def dashboard(request):
+    auth_user = base_user.objects.get(username=request.user.username)
+    if auth_user.user_type == 2:
+        staff = auth_user.doctor
+        return render(request, 'app/home/templates/index.html', {'user':staff, 'user_type':'Doctor'})
+    elif auth_user.user_type == 3:
+        staff = auth_user.clerk
+        return render(request, 'app/home/templates/index.html', {'user':staff, 'user_type':'Clerk'})
