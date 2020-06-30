@@ -11,7 +11,7 @@ from django.core.mail import EmailMessage
 from HospitalManagementApp.models import base_user
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-
+from django.contrib.auth.forms import SetPasswordForm
 
 
 def signup(request):
@@ -24,6 +24,8 @@ def signup(request):
                 error_massage = "Email has been used before."
                 request.session['subject'] = 'Signup'
                 return render(request, 'signup.html', {'form': form, 'user_type': 'Doctor', 'error_massage': error_massage})
+            form.cleaned_data['password1'] = base_user.objects.make_random_password()
+            form.cleaned_data['password2'] = form.cleaned_data['password1']
             user = form.save(commit=False)
             user.is_active = False
             user.user_type = 2
@@ -63,6 +65,8 @@ def signup(request):
                 request.session['subject'] = 'Signup'
                 return render(request, 'signup.html',
                               {'form': form, 'user_type': 'Clerk', 'error_massage': error_massage})
+            form.cleaned_data['password1'] = base_user.objects.make_random_password()
+            form.cleaned_data['password2'] = form.cleaned_data['password1']
             user = form.save(commit=False)
             user.is_active = False
             user.user_type = 3
@@ -87,7 +91,7 @@ def signup(request):
             )
             email.send()
             request.session['subject'] = 'Account Activation'
-            request.session['massage'] = 'An email has been sent to' + form.cleaned_data.get('email') + '.\n'
+            request.session['massage'] = 'An email has been sent to  ' + form.cleaned_data.get('email') + '.\n'
             return render(request, 'massage.html')
         else:
             request.session['subject'] = 'Signup'
@@ -150,18 +154,62 @@ def activate(request, uidb64, token):
     except (TypeError, ValueError, OverflowError, base_user.DoesNotExist):
         user = None
     if user is not None and account_activation_token.check_token(user, token) and user.user_type == 2:
-        user.is_active = True
-        user.doctor.email_confirmed = True
-        user.save()
-        auth_login(request, user)
-        return redirect('login')
+        if request.method == 'POST' :
+            form = SetPasswordForm(user=user, data=request.POST)
+            if form.is_valid:
+                user.set_password(form.data['new_password1'])
+                user.is_active = True
+                user.doctor.email_confirmed = True
+                user.save()
+                return redirect(reverse('accounts:login'))
+            else:
+                request.session['subject'] = 'Login'
+                form = SetPasswordForm(user=user)
+                form.fields['new_password1'].lable = 'Your password'
+                form.fields['new_password2'].lable = 'Your password confirmation'
+                return render(request, 'password.html', {'form': form,
+                                                         'first_name': user.doctor.first_name,
+                                                         'uidb64':uidb64,
+                                                         'token':token,
+                                                         })
+        else:
+            request.session['subject'] = 'Login'
+            form = SetPasswordForm(user=user)
+            form.fields['new_password1'].lable = 'Your password'
+            form.fields['new_password2'].lable = 'Your password confirmation'
+            return render(request, 'password.html', {'form': form,
+                                                         'first_name': user.doctor.first_name,
+                                                         'uidb64':uidb64,
+                                                         'token':token,
+                                                         })
     elif user is not None and account_activation_token.check_token(user, token) and user.user_type == 3:
-        user.is_active = True
-        user.save()
-        auth_login(request, user)
-        return redirect('accounts:login')
-    else:
-        return render(request, 'account_activation_invalid.html')
+        if request.method == 'POST':
+            form = SetPasswordForm(user=user)
+            if form.is_valid:
+                user.set_password(form.data['new_password1'])
+                user.is_active = True
+                user.save()
+                return redirect(reverse('accounts:login'))
+            else:
+                request.session['subject'] = 'Login'
+                form = SetPasswordForm(user=user)
+                form.fields['new_password1'].lable = 'Your password'
+                form.fields['new_password2'].lable = 'Your password confirmation'
+                return render(request, 'password.html', {'form': form,
+                                                         'first_name': user.clerk.first_name,
+                                                         'uidb64':uidb64,
+                                                         'token':token,
+                                                         })
+        else:
+            request.session['subject'] = 'Login'
+            form = SetPasswordForm(user=user)
+            form.fields['new_password1'].lable = 'Your password'
+            form.fields['new_password2'].lable = 'Your password confirmation'
+            return render(request, 'password.html', {'form': form,
+                                                         'first_name': user.clerk.first_name,
+                                                         'uidb64':uidb64,
+                                                         'token':token,
+                                                         })
 
 @login_required
 def dashboard(request):

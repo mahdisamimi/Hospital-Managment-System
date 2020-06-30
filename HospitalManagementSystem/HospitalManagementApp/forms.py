@@ -16,7 +16,11 @@ class DoctorSignUpForm(UserCreationForm):
     # !!ADVANCED!! hospital = models.ForeignKey(hospital, on_delete=models.CASCADE)
     class Meta:
         model = base_user
-        fields = ('username', 'password1', 'password2', 'first_name', 'last_name', 'natural_code', 'msn', 'phone', 'email', )
+        fields = ('username', 'first_name', 'last_name', 'natural_code', 'msn', 'phone', 'email', )
+    def __init__(self, *args, **kargs):
+        super(DoctorSignUpForm, self).__init__(*args, **kargs)
+        self.fields.pop('password1')
+        self.fields.pop('password2')
 
 class ClerkSignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=255, required =True)
@@ -27,4 +31,8 @@ class ClerkSignUpForm(UserCreationForm):
     # !!ADVANCED!! hospital = models.ForeignKey(hospital, on_delete=models.CASCADE)
     class Meta:
         model = base_user
-        fields = ('username', 'password1', 'password2', 'first_name', 'last_name', 'natural_code', 'phone', 'email', )
+        fields = ('username', 'first_name', 'last_name', 'natural_code', 'phone', 'email', )
+    def __init__(self, *args, **kargs):
+        super(ClerkSignUpForm, self).__init__(*args, **kargs)
+        self.fields.pop('password1')
+        self.fields.pop('password2')
