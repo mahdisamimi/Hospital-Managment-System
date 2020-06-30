@@ -173,24 +173,33 @@ def activate(request, uidb64, token):
                                                          'token':token,
                                                          })
         else:
-            request.session['subject'] = 'Login'
-            form = SetPasswordForm(user=user)
-            form.fields['new_password1'].lable = 'Your password'
-            form.fields['new_password2'].lable = 'Your password confirmation'
-            return render(request, 'password.html', {'form': form,
-                                                         'first_name': user.doctor.first_name,
-                                                         'uidb64':uidb64,
-                                                         'token':token,
-                                                         })
+            if user.is_active == False:
+                request.session['subject'] = 'Login'
+                form = SetPasswordForm(user=user)
+                form.fields['new_password1'].lable = 'Your password'
+                form.fields['new_password2'].lable = 'Your password confirmation'
+                return render(request, 'password.html', {'form': form,
+                                                             'first_name': user.doctor.first_name,
+                                                             'uidb64':uidb64,
+                                                             'token':token,
+                                                             })
+            else:
+                request.session['subject'] = 'Account Password'
+                request.session[
+                    'massage'] = 'Sorry, This page is not available for you anymore.'
+                return render(request, 'massage.html')
+
     elif user is not None and account_activation_token.check_token(user, token) and user.user_type == 3:
         if request.method == 'POST':
-            form = SetPasswordForm(user=user)
+            form = SetPasswordForm(user=user,  data=request.POST)
             if form.is_valid:
+                print('============================================== :   ', form.__dict__)
                 user.set_password(form.data['new_password1'])
                 user.is_active = True
                 user.save()
                 return redirect(reverse('accounts:login'))
             else:
+
                 request.session['subject'] = 'Login'
                 form = SetPasswordForm(user=user)
                 form.fields['new_password1'].lable = 'Your password'
@@ -201,15 +210,26 @@ def activate(request, uidb64, token):
                                                          'token':token,
                                                          })
         else:
-            request.session['subject'] = 'Login'
-            form = SetPasswordForm(user=user)
-            form.fields['new_password1'].lable = 'Your password'
-            form.fields['new_password2'].lable = 'Your password confirmation'
-            return render(request, 'password.html', {'form': form,
-                                                         'first_name': user.clerk.first_name,
-                                                         'uidb64':uidb64,
-                                                         'token':token,
-                                                         })
+            if user.is_active == False:
+                request.session['subject'] = 'Login'
+                form = SetPasswordForm(user=user)
+                form.fields['new_password1'].lable = 'Your password'
+                form.fields['new_password2'].lable = 'Your password confirmation'
+                return render(request, 'password.html', {'form': form,
+                                                             'first_name': user.clerk.first_name,
+                                                             'uidb64':uidb64,
+                                                             'token':token,
+                                                             })
+            else:
+                request.session['subject'] = 'Account Password'
+                request.session[
+                    'massage'] = 'Sorry, This page is not available for you anymore.'
+                return render(request, 'massage.html')
+    else:
+        request.session['subject'] = 'Wrong Address!'
+        request.session[
+            'massage'] = 'Sorry, This page is not available for you.'
+        return render(request, 'massage.html')
 
 @login_required
 def dashboard(request):
