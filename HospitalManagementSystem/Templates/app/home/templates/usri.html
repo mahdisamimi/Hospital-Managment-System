@@ -1,0 +1,58 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}{{user_type}} Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- [ Main Content ] start -->
+    <div class="pcoded-main-container" style=" direction: rtl;">
+        <div class="pcoded-content">
+            <!-- [ breadcrumb ] start -->
+            <!-- <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h5 class="m-b-10">Dashboard Analytics</h5>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="#!">Dashboard Analytics</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- [ breadcrumb ] end -->
+            <!-- [ Main Content ] start -->
+            <div class="row" >
+                <!-- order-card start -->
+                <div class="col-md-6 col-xl-3">
+                    <div class="card bg-c-blue order-card">
+                        <div class="card-body">
+                            <h6 class="text-white">{{ user.first_name}} | {{ user.last_name}}  </h6>
+                            <h6 class="text-white">{{ user.hospital_id}} | شناسه ی بیمارستان  </h6>
+                            <h2 class="text-right text-white"><i></i><span></span></h2>
+                            <p class="m-b-0"> <a style="color : red;"  href="#">پروفایل</a><span class="float-right"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+    <!-- Apex Chart -->
+    <script src="/static/assets/js/plugins/apexcharts.min.js"></script>
+    <!-- custom-chart js -->
+    <script src="/static/assets/js/pages/dashboard-main.js"></script>
+
+{% endblock javascripts %}

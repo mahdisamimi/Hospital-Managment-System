@@ -12,7 +12,7 @@ from HospitalManagementApp.models import base_user
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.contrib.auth.forms import SetPasswordForm
-
+from HospitalManagementApp.models import clerk,doctor
 
 def signup(request):
 
@@ -236,7 +236,22 @@ def dashboard(request):
     auth_user = base_user.objects.get(username=request.user.username)
     if auth_user.user_type == 2:
         staff = auth_user.doctor
+        
         return render(request, 'app/home/templates/index.html', {'user':staff, 'user_type':'Doctor'})
     elif auth_user.user_type == 3:
         staff = auth_user.clerk
+       
         return render(request, 'app/home/templates/index.html', {'user':staff, 'user_type':'Clerk'})
+
+@login_required
+def usri(request):
+    auth_user = base_user.objects.get(username=request.user.username)
+    if auth_user.user_type == 2:
+        staff = auth_user.doctor
+        
+        return render(request, 'app/home/templates/usri.html', {'user':staff, 'user_type':'Doctor'})
+    elif auth_user.user_type == 3:
+        staff = auth_user.clerk
+       
+        return render(request, 'app/home/templates/usri.html', {'user':staff, 'user_type':'Clerk'})
+
