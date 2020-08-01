@@ -16,7 +16,9 @@ class hospital(models.Model):
     id = models.IntegerField(primary_key=True)
     address = models.CharField(max_length=50)
     name = models.CharField(max_length=40)
-
+    def __str__(self):
+        return self.name
+            
 class clerk(models.Model):
     user = models.OneToOneField(base_user, on_delete=models.CASCADE)
     id=models.AutoField(primary_key=True)
@@ -27,6 +29,9 @@ class clerk(models.Model):
     email = models.CharField(null=True, max_length=40)
     hospital_id =models.ForeignKey(hospital,on_delete=models.CASCADE, null=True)
 
+    def __str__(self):
+        return self.last_name
+    
 # class hospital_manager(models.Model):
 #     id = models.IntegerField(primary_key=True)
 #     username = models.ForeignKey(user, on_delete=models.CASCADE)
@@ -44,6 +49,9 @@ class doctor(models.Model):
     email_confirmed = models.BooleanField(default=False)
     hospital_id = models.ForeignKey(hospital, on_delete=models.CASCADE, null=True)
 
+    def __str__(self):
+        return self.last_name
+    
 @receiver(post_save, sender=base_user)
 def update_user(sender, instance, created, **kwargs):
     if created:

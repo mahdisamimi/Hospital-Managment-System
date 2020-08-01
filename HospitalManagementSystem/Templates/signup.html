@@ -1,0 +1,26 @@
+{% extends 'sign-in-up-layout.html' %}
+
+{% block sign %}
+  <form method="post">
+
+    <div><h6   class="text-muted display-7" style="text-align:left;" >Sign up a {{user_type}}</h6></div>
+    {% csrf_token %}
+    <p style="color: red">{{ error_massage }}</p>
+    {% for field in form %}
+      <p class="field">
+        {{ field.label_tag }}<br>
+        {{ field }}
+        <div class="help-text">
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+          </div>
+
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <button class="btn btn-primary" type="submit" name="user type" value="{{user_type}}">Sign up</button>
+  </form>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'sign-in-up-layout.html' %}
+
+{% block sign %}
+<h2 class="field"></h2>
+  <form class="site-form form-group" action="{%url 'accounts:login' %}" method="post">
+    {% csrf_token %}
+    <p style="color: red">{{ error }}</p>
+      {% for field in form %}
+      <p class="field">
+
+        {{ field.label_tag }}<br>
+        {{ field }}
+        <div class="help-text">
+          {% if field.help_text %}
+            <small style="color: grey">{{ field.help_text }}</small>
+          {% endif %}
+        </div>
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <a href="#">Forgot Password?</a>
+    <button class="btn btn-primary " type="submit">Login</button>
+  </form>
+{% endblock %}

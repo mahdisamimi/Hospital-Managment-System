@@ -17,9 +17,9 @@
                     <div class="card bg-c-blue order-card">
                     
                         <div class="card-body">
-                        </h2 class="text-white"> free time and reserv</h2>
+                        </h2 class="text-white"> user information</h2>
                         <hr>
-                        {% comment %} {% if user.phone %}
+                        {% if user.phone %}
                             <h6 class="text-white"> phone : {{user.phone}}</h6>
                         {% else %} 
                         <h6 class="text-white"> phone : there is nothing to show </h6> 
@@ -38,7 +38,7 @@
                         <h6 class="text-white"> hospital : {{user.hospital_id}}</h6>
                             <hr>
                         <h6 class="text-white"> natural code : {{user.natural_code}}</h6><hr>
-                         {% endcomment %}
+                        
 
 
                         </div>

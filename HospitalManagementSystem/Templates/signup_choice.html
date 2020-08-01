@@ -1,0 +1,11 @@
+{% extends 'sign-in-up-layout.html' %}
+
+{% block sign %}
+{% csrf_token %}
+<form action="{%url 'accounts:signup' %}" method="get">
+    <div class="btn-group-vertical " role="group">
+        <button type="submit" class="btn " name="user" value="clerk">Signup a Clerk!</button>
+        <button type="submit" class="btn " name="user" value="doctor">Signup a Doctor!</button>
+    </div>
+</form>
+{% endblock %}
