@@ -2,7 +2,7 @@ from django.contrib import admin
 from .models import *
 
 admin.site.register(base_user)
-admin.site.register(hospital)
+admin.site.register(manager)
 admin.site.register(clerk)
 #admin.site.register(hospital_manager)
 admin.site.register(doctor)

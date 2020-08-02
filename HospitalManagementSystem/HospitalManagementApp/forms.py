@@ -36,3 +36,22 @@ class ClerkSignUpForm(UserCreationForm):
         super(ClerkSignUpForm, self).__init__(*args, **kargs)
         self.fields.pop('password1')
         self.fields.pop('password2')
+
+class ManagerSignUpForm(UserCreationForm):
+    first_name = forms.CharField(max_length=255, required=True)
+    last_name = forms.CharField(max_length=255, required=True)
+    natural_code = forms.IntegerField(required=True)
+    phone = forms.IntegerField(required=True)
+    email = forms.CharField(max_length=40, required=True,
+                            help_text="Enter valid Email Address. You will be asked for Verification.")
+    hospital_name = forms.CharField(max_length=255, required=True)
+    hospital_id = forms.IntegerField(required=True)
+
+    class Meta:
+        model = base_user
+        fields = ('username', 'first_name', 'last_name', 'natural_code', 'phone', 'email', 'hospital_name', 'hospital_id', )
+
+    def __init__(self, *args, **kargs):
+        super(ManagerSignUpForm, self).__init__(*args, **kargs)
+        self.fields.pop('password1')
+        self.fields.pop('password2')

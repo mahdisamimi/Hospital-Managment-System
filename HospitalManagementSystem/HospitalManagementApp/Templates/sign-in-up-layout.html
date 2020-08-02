@@ -12,7 +12,7 @@
             <section class="container-fluid bg">
                 <section class="row justify-content-center ">
                     <section class="col-12 col-sm-6 col-md-3 form-container">
-                         <ul class="nav nav-tabs">
+                         <ul class=" nav nav-tabs {% if request.session.subject not in 'LoginSignup' %} d-none {% endif %}"  >
                             <li class="nav-item">
                                 <a class="nav-link {% if request.session.subject == 'Login' %} active {% endif %}" href="{% url 'accounts:login' %}">Login</a>
                             </li>
