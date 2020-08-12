@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^usri/$', views.usri , name='usri'),
     url(r'^login/$', views.login, name='login'),
     url(r'^signup/$', views.signup, name='signup'),
-    url(r'^dashboard/$', views.dashboard, name='dashboard')
+    url(r'^dashboard/$', views.dashboard, name='dashboard'),
+    url(r'^change-password/$', views.change_password, name='change password'),
 ]

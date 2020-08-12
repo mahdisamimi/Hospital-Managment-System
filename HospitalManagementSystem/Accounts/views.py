@@ -1,4 +1,4 @@
-from django.contrib.auth import login as auth_login, authenticate
+from django.contrib.auth import login as auth_login, authenticate, update_session_auth_hash
 from django.contrib.auth.forms import AuthenticationForm
 from django.shortcuts import render, redirect
 from HospitalManagementApp import forms, models
@@ -11,7 +11,7 @@ from django.core.mail import EmailMessage
 from HospitalManagementApp.models import base_user
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from django.contrib.auth.forms import SetPasswordForm
+from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm
 from HospitalManagementApp.models import clerk,doctor
 from django.contrib.auth.decorators import user_passes_test
 
@@ -172,7 +172,7 @@ def activate(request, uidb64, token):
                 user.save()
                 return redirect(reverse('accounts:login'))
             else:
-                request.session['subject'] = 'Login'
+                request.session['subject'] = 'Avtivate'
                 form = SetPasswordForm(user=user)
                 form.fields['new_password1'].lable = 'Your password'
                 form.fields['new_password2'].lable = 'Your password confirmation'
@@ -183,7 +183,7 @@ def activate(request, uidb64, token):
                                                          })
         else:
             if user.is_active == False:
-                request.session['subject'] = 'Login'
+                request.session['subject'] = 'Avtivate'
                 form = SetPasswordForm(user=user)
                 form.fields['new_password1'].lable = 'Your password'
                 form.fields['new_password2'].lable = 'Your password confirmation'
@@ -202,7 +202,6 @@ def activate(request, uidb64, token):
         if request.method == 'POST':
             form = SetPasswordForm(user=user,  data=request.POST)
             if form.is_valid:
-                print('============================================== :   ', form.__dict__)
                 user.set_password(form.data['new_password1'])
                 user.is_active = True
                 user.save()
@@ -360,3 +359,27 @@ def manager_signup(request):
 
 def permission_denied(request):
     return render(request, 'permission-denied.html')
+
+def change_password(request):
+    try:
+        auth_user = base_user.objects.get(username=request.user.username)
+    except (TypeError, ValueError, OverflowError, base_user.DoesNotExist):
+        auth_user = None
+    if auth_user is None:
+        return render(request, 'permission-denied.html')
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=auth_user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect(reverse('accounts:dashboard'))
+        else:
+            request.session['subject'] = 'Avtivate'
+            return render(request, 'change password.html', {'form': form,
+                                                     })
+    else:
+        request.session['subject'] = 'Avtivate'
+        form = PasswordChangeForm(user=auth_user)
+        return render(request, 'change password.html', {'form': form,
+                                                 })
+
