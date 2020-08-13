@@ -1,6 +1,6 @@
 from HospitalManagementApp import forms, models
 from HospitalManagementApp.models import base_user
-from HospitalManagementApp.models import clerk, doctor
+from HospitalManagementApp.models import clerk, doctor, reserve
 from HospitalManagementApp.token import account_activation_token
 from django.contrib.auth import login as auth_login, authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
