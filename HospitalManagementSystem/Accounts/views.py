@@ -450,4 +450,88 @@ def modify(request):
             request.session['subject'] = 'Edit Profile'
             return render(request, 'app/home/templates/auth-signup.html', {'form': form, 'user': auth_user.clerk
                                                          })
+def rezerv(request):
+    # return render(request,'rezerv.html')
+    if request.method == 'POST':
+        # form = forms.DoctorSignUpForm(request.POST)
+        form = forms.ReservesForm(request.POST)
+        if form.is_valid():
+            # is_duplicate = User.objects.filter(email=form.cleaned_data.get('email')).count()
+            # if is_duplicate > 0:
+            #     error_massage = "Email has been used before"
+            #     return render(request, 'rezerv.html', {'form': form, 'error_massage': error_massage})
+            user = form.save()
+            user.is_active = False
+            user.refresh_from_db()
+            user.reserve.doctor_id = form.cleaned_data.get('doctor_id')
+            user.reserve.reserve_time = form.cleaned_data.get('reserve_time')
+            user.reserve.natural_code = form.cleaned_data.get('natural_code')
+            user.reserve.clerk_id = form.cleaned_data.get('clerk_id')
+            user.save()
 
+            request.session['subject'] = 'Account Activation'
+            request.session['massage'] = 'An email has been sent to' + form.cleaned_data.get('email') + '.\n'
+            return render(request, 'massage.html')
+    else:
+        form = forms.ReservesForm(request.POST)
+        request.session['subject'] = 'Signup'
+    return render(request, 'rezerv2.html', {'form': form})
+
+
+# def create_rezerv(request):
+#     new_rezerv = reserve(doctor_id=request.POST.get('doctor_id'))
+#     new_rezerv.save()
+#     return redirect('/accounts/rezerv_list/')
+#
+
+def rezerv_list(request):
+    rezervs = reserve.objects.all()
+    return render(request, 'rezerv_list2.html', {'rezerv': rezervs})
+
+
+def delete_rezerv(request, id=None):
+    rezervs = reserve.objects.get(id=id)
+    rezervs.delete()
+    return redirect('/accounts/rezerv_list/')
+
+
+def update_rezerv(request, id):
+    rezervs = reserve.objects.get(id=id)
+    if request.method == 'POST':
+        # form = forms.DoctorSignUpForm(request.POST)
+        form = forms.ReservesForm(request.POST)
+        if form.is_valid():
+            # is_duplicate = User.objects.filter(email=form.cleaned_data.get('email')).count()
+            # if is_duplicate > 0:
+            #     error_massage = "Email has been used before"
+            #     return render(request, 'rezerv.html', {'form': form, 'error_massage': error_massage})
+            user = form.save()
+            user.is_active = False
+            user.refresh_from_db()
+            user.reserve.doctor_id = form.cleaned_data.get('doctor_id')
+            user.reserve.reserve_time = form.cleaned_data.get('reserve_time')
+            user.reserve.natural_code = form.cleaned_data.get('natural_code')
+            user.reserve.clerk_id = form.cleaned_data.get('clerk_id')
+            user.save()
+
+            request.session['subject'] = 'Account Activation'
+            request.session['massage'] = 'An email has been sent to' + form.cleaned_data.get('email') + '.\n'
+            return render(request, 'massage.html')
+    else:
+        form = forms.ReservesForm(request.POST)
+        request.session['subject'] = 'Signup'
+    # return render(request, 'rezerv.html', )
+    form2 = ReservesForm(initial={'doctor_id': rezervs.doctor_id, 'reserve_time': rezervs.reserve_time,
+                                  'natural_code': rezervs.natural_code, 'clerk_id': rezervs.clerk_id})
+    # form2=form.fields['natural_code'].initial = reverse.natural_code
+    return render(request, 'rezerv_update2.html', {'form': form2, 'id': id})
+
+
+def updating(request):
+    id = request.POST['id']
+    rezervs = reserve.objects.get(id=id)
+    rezervs.doctor_id = doctor.objects.get(id=request.POST['doctor_id'])
+    rezervs.natural_code = request.POST['natural_code']
+    rezervs.reserve_time = free_time.objects.get(id=request.POST['rezerv_time'])
+    rezervs.save()
+    return redirect('/accounts/rezerv_list/')
