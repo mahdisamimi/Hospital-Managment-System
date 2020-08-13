@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from HospitalManagementApp.models import doctor
+from HospitalManagementApp.models import doctor, clerk, manager
 from.models import base_user
 
 
@@ -55,3 +55,30 @@ class ManagerSignUpForm(UserCreationForm):
         super(ManagerSignUpForm, self).__init__(*args, **kargs)
         self.fields.pop('password1')
         self.fields.pop('password2')
+
+class ClerkEditProfileForm(forms.ModelForm):
+    class Meta:
+        model = clerk
+        fields = ('first_name', 'last_name', 'natural_code', 'phone', 'email',)
+
+    def __init__(self, *args, **kwargs):
+        super(ClerkEditProfileForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+class DoctorEditProfileForm(forms.ModelForm):
+    class Meta:
+        model = doctor
+        fields = ('first_name', 'last_name', 'natural_code', 'msn', 'phone', 'email', )
+
+    def __init__(self, *args, **kwargs):
+        super(DoctorEditProfileForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
+class ManagerEditProfileForm(forms.ModelForm):
+    class Meta:
+        model = manager
+        fields = ('first_name', 'last_name', 'natural_code', 'phone', 'email', 'hospital_name', 'hospital_id', )
+    def __init__(self, *args, **kwargs):
+        super(ManagerEditProfileForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control'
