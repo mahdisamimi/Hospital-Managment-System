@@ -1,0 +1,49 @@
+<{% extends "layouts/base.html" %}
+
+{% block title %} {{user_type}} | Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="pcoded-main-container">
+    <div class="pcoded-content">
+
+        <form method="post">
+
+
+            {% csrf_token %}
+            <p style="color: red">{{ error_massage }}</p>
+            {% for field in form %}
+            <p class="field">
+                {{ field.label_tag }}<br>
+                {{ field }}
+            <div class="help-text">
+                {% if field.help_text %}
+                <small style="color: grey">{{ field.help_text }}</small>
+                {% endif %}
+            </div>
+
+            {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
+            {% endfor %}
+            </p>
+            {% endfor %}
+            <button class="btn btn-primary" type="submit" name="user type">Add</button>
+        </form>
+        <a href="{% url 'accounts:rezerv_list' %}" class="btn btn-primary">Back</a>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<!-- Apex Chart -->
+<script src="/static/assets/js/plugins/apexcharts.min.js"></script>
+<!-- custom-chart js -->
+<script src="/static/assets/js/pages/dashboard-main.js"></script>
+
+{% endblock javascripts %}
+>

@@ -1,0 +1,63 @@
+<{% extends "layouts/base.html" %}
+
+{% block title %} {{user_type}} | Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="pcoded-main-container">
+    <div class="pcoded-content">
+        <table class="table">
+            <tbody>
+            <thead class="thead-dark">
+            <a href="{% url 'accounts:rezerv' %}" class="badge badge-pill badge-primary">Add</a>
+            <tr>
+                <td>Doctor Id</td>
+                <td>Reserve Time</td>
+                <td>Naturasl Code</td>
+                <td>Clerk Id</td>
+                <td>Edite</td>
+            </tr>
+            </thead>
+            <br>
+
+            {% for field in rezerv %}
+            {% if field.clerk_id == user.last_name %}
+
+            <!--                    the <tr> tag should paste to this if        -->
+
+            {% endif %}
+            <tr>
+                <td>{{ field.doctor_id }}</td>
+                <td>{{ field.reserve_time }}</td>
+                <td>{{ field.natural_code }}</td>
+                <td>{{ field.clerk_id }}</td>
+
+                <td>
+                    <a href="/accounts/update/{{field.id}}/" class="btn btn-info">update</a>
+                    <a href="/accounts/delete/{{field.id}}/" class="btn btn-danger">delete</a>
+                </td>
+            </tr>
+            <br>
+
+            {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<!-- Apex Chart -->
+<script src="/static/assets/js/plugins/apexcharts.min.js"></script>
+<!-- custom-chart js -->
+<script src="/static/assets/js/pages/dashboard-main.js"></script>
+
+{% endblock javascripts %}
+>

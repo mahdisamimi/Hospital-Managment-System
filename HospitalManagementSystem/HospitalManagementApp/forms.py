@@ -1,7 +1,26 @@
+import datetime
+from HospitalManagementApp.models import doctor, clerk, free_time
 from HospitalManagementApp.models import doctor, clerk, manager
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
+from django.forms import ModelForm
+
+from .models import base_user, reserve
+
+
+class ReservesForm(ModelForm):
+    class Meta:
+        model = reserve
+        fields = ['doctor_id', 'reserve_time', 'natural_code', 'clerk_id', ]
+
+    doctor_id = forms.ModelChoiceField(queryset=doctor.objects.all())
+    reserve_time = forms.ModelChoiceField(queryset=free_time.objects.all())
+    natural_code = forms.IntegerField()
+    clerk_id = forms.ModelChoiceField(queryset=clerk.objects.all())
+    # !!ADVANCED!! hospital = models.ForeignKey(hospital, on_delete=models.CASCADE)
+
 
 from .models import base_user
 
@@ -97,3 +116,4 @@ class ManagerEditProfileForm(forms.ModelForm):
         super(ManagerEditProfileForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
+
