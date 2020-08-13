@@ -1,0 +1,15 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+{% csrf_token %}
+<h2><a href="">PERMISSION DENIED</a></h2>
+<div class="card">
+    <div class="card-header">
+        {{subject}}
+    </div>
+    <div class="card-body">
+        <h4 class="card-title"></h4>
+        <p class="card-text">Sorry ! You dont have permission to access.</p>
+    </div>
+</div>
+{% endblock %}
