@@ -27,6 +27,8 @@
 
 							<li><a href="{% url 'accounts:dashboard' %}" target="_blank">user data </a></li>
 
+							<li><a href="{% url 'accounts:coordinate' %}" target="_blank" id="coordinate">coordinate </a></li>
+
 					        <li><a href="{% url 'accounts:change password' %}" target="_blank">Change Password</a></li>
 
 					        <li><a href="{% url 'accounts:modify' %}" target="_blank">Edit Profile</a></li>
@@ -55,3 +57,13 @@
 		</div>
 	</nav>
     <!-- [ navigation menu ] end -->
+	<script>
+		$(document).ready(function(){
+			var user_type = {{ user_type|safe }}
+			alert(user_type);
+			if($(user_type="doctor")
+				$('#coordinate').show();
+			else
+				$('#coordinate').hide();
+		});
+	</script>

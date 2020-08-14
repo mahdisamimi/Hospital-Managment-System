@@ -1,0 +1,66 @@
+<{% extends "layouts/base.html" %}
+
+{% block title %} {{user_type}} | Dashboard {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+{% load static  %}
+
+<div class="pcoded-main-container ">
+    {% csrf_token %}
+    <div class="pcoded-content ">
+        <div class="row align-items-center   justify-content-center">
+            <div class="col-sm-8 ">
+                <div class="card ">
+                    <div class="card-body">
+                        <h4 class="mb-3 f-w-400">Coordination For Time Schedule</h4>
+                        <br>
+                        <div id="schedule">
+                        </div>
+                        <div class="col-sm-3">
+                        <button class="btn btn-primary btn-block mb-4" id="actionbtn">Submit Changes</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+<!-- JS files -->
+>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="{% static 'dist\jquery.schedule.min.js' %}"></script>
+<link href="{% static 'dist\jquery.schedule.min.css' %}" rel="stylesheet">
+<script>
+
+    $(document).ready(function(data_var){
+        var data_var = {{ data|safe }}
+        $('#schedule').jqs();
+        $('#schedule').jqs('import', data_var);
+        $('td:contains("i have to print the name inside here")').text(data_var);
+        $('#actionbtn').click(function() {
+                var data = $('#schedule').jqs('export');
+                var CSRFtoken = $('input[name=csrfmiddlewaretoken]').val();
+                $.post("/accounts/coordinate/",
+                  {
+                     data: data,
+                     csrfmiddlewaretoken: CSRFtoken
+                  },
+                  );
+            });
+        });
+
+
+</script>
+{% endblock javascripts %}
+
+

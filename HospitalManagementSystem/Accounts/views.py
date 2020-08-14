@@ -5,6 +5,7 @@ from HospitalManagementApp.token import account_activation_token
 from django.contrib.auth import login as auth_login, authenticate, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm
 from django.contrib.sites.shortcuts import get_current_site
@@ -412,12 +413,12 @@ def modify(request):
                 return redirect(reverse('accounts:dashboard'))
             else:
                 request.session['subject'] = 'Edit Profile'
-                return render(request, 'signup.html', {'form': form, 'user': auth_user.manager
+                return render(request, 'app/home/templates/auth-signup.html', {'form': form, 'user': auth_user.manager
                                                        })
         else:
             form = forms.ManagerEditProfileForm(instance=auth_user.manager)
             request.session['subject'] = 'Edit Profile'
-            return render(request, 'signup.html', {'form': form, 'user': auth_user.manager
+            return render(request, 'app/home/templates/auth-signup.html', {'form': form, 'user': auth_user.manager
                                                    })
     elif auth_user.user_type == 2:  # doctor
         if request.method == 'POST':
@@ -427,12 +428,12 @@ def modify(request):
                 return redirect(reverse('accounts:dashboard'))
             else:
                 request.session['subject'] = 'Edit Profile'
-                return render(request, 'signup.html', {'form': form, 'user': auth_user.doctor
+                return render(request, 'app/home/templates/auth-signup.html', {'form': form, 'user': auth_user.doctor
                                                        })
         else:
             form = forms.DoctorEditProfileForm(instance=auth_user.doctor)
             request.session['subject'] = 'Edit Profile'
-            return render(request, 'signup.html', {'form': form, 'user': auth_user.doctor
+            return render(request, 'app/home/templates/auth-signup.html', {'form': form, 'user': auth_user.doctor
                                                    })
     elif auth_user.user_type == 3:  # clerk
         if request.method == 'POST':
@@ -443,7 +444,7 @@ def modify(request):
                 return redirect(reverse('accounts:dashboard'))
             else:
                 request.session['subject'] = 'Edit Profile'
-                return render(request, 'signup.html', {'form': form, 'user': auth_user.clerk
+                return render(request, 'app/home/templates/auth-signup.html', {'form': form, 'user': auth_user.clerk
                                                        })
         else:
             form = forms.ClerkEditProfileForm(instance=auth_user.clerk)
@@ -479,12 +480,6 @@ def rezerv(request):
         request.session['subject'] = 'Signup'
     return render(request, 'rezerv2.html', {'form': form})
 
-
-# def create_rezerv(request):
-#     new_rezerv = reserve(doctor_id=request.POST.get('doctor_id'))
-#     new_rezerv.save()
-#     return redirect('/accounts/rezerv_list/')
-#
 
 def rezerv_list(request):
     rezervs = reserve.objects.all()
@@ -537,3 +532,21 @@ def updating(request):
     rezervs.reserve_time = free_time.objects.get(id=request.POST['rezerv_time'])
     rezervs.save()
     return redirect('/accounts/rezerv_list/')
+
+@csrf_exempt
+def coordinate(request):
+    try:
+        auth_user = base_user.objects.get(username=request.user.username)
+    except (TypeError, ValueError, OverflowError, base_user.DoesNotExist):
+        auth_user = None
+    if auth_user is None or auth_user.user_type != 2:
+        return render(request, 'permission-denied.html')
+    if auth_user.user_type == 2:
+        if request.method == 'POST':
+            data = request.POST.get('data')
+            doctor.objects.filter(id=auth_user.doctor.id).update(data=data)
+            return render(request, 'coordinate.html', {'data': data})
+        else:
+            data = auth_user.doctor.data
+            print("THIS IS DATA ----------------------: ", data)
+            return render(request, 'coordinate.html', {'data': data})

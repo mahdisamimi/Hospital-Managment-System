@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
+from json_field import JSONField
 
 
 # Create your models here.
@@ -56,6 +57,7 @@ class doctor(models.Model):
     phone = models.IntegerField(null=True)
     email = models.CharField(max_length=40, null=True)
     email_confirmed = models.BooleanField(default=False)
+    data = JSONField(null=True  )
 
     def __str__(self):
         return self.last_name

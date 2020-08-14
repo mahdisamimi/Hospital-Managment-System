@@ -18,4 +18,5 @@ urlpatterns = [
     url(r'^delete/(?P<id>\d+)/$', views.delete_rezerv, name='delete'),
     url(r'^update/(?P<id>\d+)/$', views.update_rezerv, name='update'),
     url(r'^updating/$', views.updating, name='updating'),
+    url(r'^coordinate/$', views.coordinate, name='coordinate'),
 ]
