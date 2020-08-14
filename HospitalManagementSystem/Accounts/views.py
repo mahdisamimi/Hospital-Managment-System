@@ -1,19 +1,19 @@
-from HospitalManagementApp import forms, models
-from HospitalManagementApp.models import base_user
-from HospitalManagementApp.models import clerk, doctor, reserve
-from HospitalManagementApp.token import account_activation_token
 from django.contrib.auth import login as auth_login, authenticate, update_session_auth_hash
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm
-from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import EmailMessage
 from django.shortcuts import render, redirect
+from HospitalManagementApp import forms, models
+from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
-from django.urls import reverse
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from HospitalManagementApp.token import account_activation_token
+from django.core.mail import EmailMessage
+from HospitalManagementApp.models import base_user
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+from django.contrib.auth.forms import SetPasswordForm, PasswordChangeForm
+from HospitalManagementApp.models import clerk, doctor
+from django.contrib.auth.decorators import user_passes_test
 
 
 def is_manager(user):
@@ -22,7 +22,7 @@ def is_manager(user):
         if auth_user.user_type == 1:
             return True
     else:
-        return False
+        False
 
 
 @user_passes_test(lambda user: is_manager(user), login_url='permission denied', redirect_field_name=None)
@@ -404,7 +404,7 @@ def modify(request):
         auth_user = None
     if auth_user is None:
         return render(request, 'permission-denied.html')
-    if auth_user.user_type == 1:  # manager
+    if auth_user.user_type == 1: # manager
         if request.method == 'POST':
             form = forms.ManagerEditProfileForm(data=request.POST, instance=auth_user.manager)
             if form.is_valid():
@@ -413,13 +413,13 @@ def modify(request):
             else:
                 request.session['subject'] = 'Edit Profile'
                 return render(request, 'signup.html', {'form': form, 'user': auth_user.manager
-                                                       })
+                                                                })
         else:
             form = forms.ManagerEditProfileForm(instance=auth_user.manager)
             request.session['subject'] = 'Edit Profile'
             return render(request, 'signup.html', {'form': form, 'user': auth_user.manager
-                                                   })
-    elif auth_user.user_type == 2:  # doctor
+                                                         })
+    elif auth_user.user_type == 2: # doctor
         if request.method == 'POST':
             form = forms.DoctorEditProfileForm(data=request.POST, instance=auth_user.doctor)
             if form.is_valid():
@@ -428,13 +428,13 @@ def modify(request):
             else:
                 request.session['subject'] = 'Edit Profile'
                 return render(request, 'signup.html', {'form': form, 'user': auth_user.doctor
-                                                       })
+                                                             })
         else:
             form = forms.DoctorEditProfileForm(instance=auth_user.doctor)
             request.session['subject'] = 'Edit Profile'
             return render(request, 'signup.html', {'form': form, 'user': auth_user.doctor
-                                                   })
-    elif auth_user.user_type == 3:  # clerk
+                                                         })
+    elif auth_user.user_type == 3: # clerk
         if request.method == 'POST':
             form = forms.ClerkEditProfileForm(data=request.POST, instance=auth_user.clerk)
             if form.is_valid():
@@ -444,14 +444,12 @@ def modify(request):
             else:
                 request.session['subject'] = 'Edit Profile'
                 return render(request, 'signup.html', {'form': form, 'user': auth_user.clerk
-                                                       })
+                                                             })
         else:
             form = forms.ClerkEditProfileForm(instance=auth_user.clerk)
             request.session['subject'] = 'Edit Profile'
             return render(request, 'app/home/templates/auth-signup.html', {'form': form, 'user': auth_user.clerk
-                                                                           })
-
-
+                                                         })
 def rezerv(request):
     # return render(request,'rezerv.html')
     if request.method == 'POST':

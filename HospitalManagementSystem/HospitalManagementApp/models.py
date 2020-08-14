@@ -1,20 +1,18 @@
-from django.contrib.auth.models import User
 from django.db import models
+from django.contrib.auth.models import User
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 
-
 # Create your models here.
 class base_user(User):
-    USER_TYPE_CHOICES = (
-        (1, 'admin'),
-        (2, 'doctor'),
-        (3, 'clerk'),
-    )
-    user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, default=1)
+  USER_TYPE_CHOICES = (
+      (1, 'admin'),
+      (2, 'doctor'),
+      (3, 'clerk'),
+  )
+  user_type = models.PositiveSmallIntegerField(choices=USER_TYPE_CHOICES, default=1)
 
-
-class manager(models.Model):
+class manager (models.Model):
     user = models.OneToOneField(base_user, on_delete=models.CASCADE)
     id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=255)
@@ -24,14 +22,12 @@ class manager(models.Model):
     email = models.CharField(null=True, max_length=40)
     hospital_name = models.CharField(max_length=255)
     hospital_id = models.IntegerField(null=True)
-
     def __str__(self):
         return self.last_name
-
-
+            
 class clerk(models.Model):
     user = models.OneToOneField(base_user, on_delete=models.CASCADE)
-    id = models.AutoField(primary_key=True)
+    id=models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     natural_code = models.IntegerField(null=True)
@@ -63,7 +59,7 @@ class doctor(models.Model):
 @receiver(post_save, sender=base_user)
 def update_user(sender, instance, created, **kwargs):
     if created:
-        if instance.user_type == 2:
+        if  instance.user_type == 2:
             doctor.objects.get_or_create(user=instance)
         elif instance.user_type == 3:
             clerk.objects.get_or_create(user=instance)

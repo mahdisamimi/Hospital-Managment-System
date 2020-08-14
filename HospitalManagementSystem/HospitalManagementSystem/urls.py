@@ -13,17 +13,18 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from Accounts import views
-from django.conf.urls import url, include
 from django.contrib import admin
-from django.contrib.auth import views as auth_views
+from django.conf.urls import url, include
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from Accounts import views
+from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
+
 
 urlpatterns = [
     url(r'^permission-denied/$', views.permission_denied, name='permission denied'),
     url('admin/', admin.site.urls),
-    url(r'^accounts/', include('Accounts.urls', namespace='accounts'), name='accounts'),
+    url(r'^accounts/', include('Accounts.urls', namespace= 'accounts'), name='accounts'),
     url(r'^account_activation_sent/$', views.account_activation_sent, name='account_activation_sent'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         views.activate, name='activate'),

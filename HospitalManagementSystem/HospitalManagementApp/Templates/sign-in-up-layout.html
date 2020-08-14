@@ -5,21 +5,19 @@
 <section class="container-fluid bg">
     <img class="wave" src="{% static 'img/wave.png' %}">
 	<div class="container">
-        <div class="img">
-            <img src="{% static 'img/bg.svg' %}">
-        </div>
-        <section class="login-content">
+		<div class="img">
+			<img src="{% static 'img/bg.svg' %}">
+		</div>
+		<div class="login-content">
             <section class="container-fluid bg">
                 <section class="row justify-content-center ">
                     <section class="col-12 col-sm-6 col-md-3 form-container">
-                        <ul class=" nav nav-tabs {% if request.session.subject not in 'LoginSignup' %} d-none {% endif %}">
+                         <ul class=" nav nav-tabs {% if request.session.subject not in 'LoginSignup' %} d-none {% endif %}"  >
                             <li class="nav-item">
-                                <a class="nav-link {% if request.session.subject == 'Login' %} active {% endif %}"
-                                   href="{% url 'accounts:login' %}">Login</a>
+                                <a class="nav-link {% if request.session.subject == 'Login' %} active {% endif %}" href="{% url 'accounts:login' %}">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link {% if request.session.subject == 'Signup' %} active {% endif %}"
-                                   href="{% url 'accounts:signup' %}">Signup</a>
+                                <a class="nav-link {% if request.session.subject == 'Signup' %} active {% endif %}" href="{% url 'accounts:signup' %}" >Signup</a>
                             </li>
                         </ul>
                         {% block sign %}
@@ -27,9 +25,10 @@
                     </section>
                 </section>
             </section>
-        </section>
+
+        </div>
     </div>
-</section>
-<script type="text/javascript" src=" {% static 'js/main.js' %}"></script>
+    <script type="text/javascript" src=" {% static 'js/main.js' %}"></script>
 
 {% endblock %}
+
