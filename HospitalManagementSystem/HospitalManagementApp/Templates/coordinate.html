@@ -21,6 +21,7 @@
                         </div>
                         <div class="col-sm-3">
                         <button class="btn btn-primary btn-block mb-4" id="actionbtn">Submit Changes</button>
+                        <input type="text" id="datainput" value="{{data2}}">
                         </div>
 
                     </div>
@@ -40,13 +41,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="{% static 'dist\jquery.schedule.min.js' %}"></script>
 <link href="{% static 'dist\jquery.schedule.min.css' %}" rel="stylesheet">
-<script>
+<script type="text/javascript">
 
-    $(document).ready(function(data_var){
-        var data_var = {{ data|safe }}
+    $(document).ready(function(){
+        var data_var = {{data2|safe}}
+
         $('#schedule').jqs();
+
         $('#schedule').jqs('import', data_var);
-        $('td:contains("i have to print the name inside here")').text(data_var);
+
         $('#actionbtn').click(function() {
                 var data = $('#schedule').jqs('export');
                 var CSRFtoken = $('input[name=csrfmiddlewaretoken]').val();
