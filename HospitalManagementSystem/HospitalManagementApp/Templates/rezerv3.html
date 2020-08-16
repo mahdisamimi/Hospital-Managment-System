@@ -10,7 +10,7 @@
 {% load static  %}
 
 <div class="pcoded-main-container ">
-
+    {% csrf_token %}
     <div class="pcoded-content ">
         <div class="row align-items-center   justify-content-center">
             <div class="col-sm-8 ">
@@ -18,12 +18,13 @@
                     <div class="card-body">
                         <h4 class="mb-3 f-w-400">Coordination For Time Schedule</h4>
                         <br>
+<!--                        <form method="post" action="{% url 'accounts:rezerv' %}">-->
 
-                            {{form.doctor_id.label}}
+                            <input type="text" value="{{data}}">
 
-                            <select type="select" id="select" value="{{form.doctor_id}}"></select>
-                            <button class="btn btn-primary btn-block mb-4" id="actionbtn" >set</button>
-                        </form>
+
+                            <button class="btn btn-primary btn-block mb-4" id="actionbtn">set</button>
+<!--                        </form>-->
                         <div class="col-sm-3">
 
 
@@ -46,24 +47,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="{% static 'dist\jquery.schedule.min.js' %}"></script>
 <link href="{% static 'dist\jquery.schedule.min.css' %}" rel="stylesheet">
-<script type="text/javascript">
-
-    $(document).ready(function(){
-        $('#actionbtn').click(function() {
-                var data = $('#select').val();
-                alert(data);
-                var CSRFtoken = $('input[name=csrfmiddlewaretoken]').val();
-                $.post("/accounts/rezerv/",
-                  {
-                     data: data,
-                     csrfmiddlewaretoken: CSRFtoken
-                  },
-                  );
-            });
-        });
 
 
-</script>
 {% endblock javascripts %}
 >
 

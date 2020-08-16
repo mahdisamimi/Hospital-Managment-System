@@ -15,7 +15,7 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.encoding import force_bytes, force_text
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-
+import json
 
 def is_manager(user):
     if not user.is_anonymous:
@@ -452,38 +452,32 @@ def modify(request):
             return render(request, 'app/home/templates/auth-signup.html', {'form': form, 'user': auth_user.clerk
                                                                            })
 
-
+@csrf_exempt
 def rezerv(request):
-    # return render(request,'rezerv.html')
-    if request.method == 'POST':
-        # form = forms.DoctorSignUpForm(request.POST)
-        form = forms.ReservesForm(request.POST)
-        if form.is_valid():
-            # is_duplicate = User.objects.filter(email=form.cleaned_data.get('email')).count()
-            # if is_duplicate > 0:
-            #     error_massage = "Email has been used before"
-            #     return render(request, 'rezerv.html', {'form': form, 'error_massage': error_massage})
-            user = form.save()
-            user.is_active = False
-            user.refresh_from_db()
-            user.reserve.doctor_id = form.cleaned_data.get('doctor_id')
-            user.reserve.reserve_time = form.cleaned_data.get('reserve_time')
-            user.reserve.natural_code = form.cleaned_data.get('natural_code')
-            user.reserve.clerk_id = form.cleaned_data.get('clerk_id')
-            user.save()
 
-            request.session['subject'] = 'Account Activation'
-            request.session['massage'] = 'An email has been sent to' + form.cleaned_data.get('email') + '.\n'
-            return render(request, 'massage.html')
+    if request.method == 'POST':
+        # return render(request,'rezerv.html')
+        data = request.POST.get('data')
+        print("THIS IS POST DATA ----------------------: ", data)
+        doc = doctor.objects.get(id=data)
+        print("THIS IS POST DATA ----------------------: ", doc.data)
+        return render(request, 'rezerv3.html', {'data': doc.data})
+
     else:
         form = forms.ReservesForm(request.POST)
-        request.session['subject'] = 'Signup'
-    return render(request, 'rezerv2.html', {'form': form})
+        return render(request, 'rezerv2.html', {'form': form})
 
 
 def rezerv_list(request):
-    rezervs = reserve.objects.all()
-    return render(request, 'rezerv_list2.html', {'rezerv': rezervs})
+    # try:
+    #     auth_user = base_user.objects.get(username=request.user.username)
+    # except (TypeError, ValueError, OverflowError, base_user.DoesNotExist):
+    #     auth_user = None
+    # if auth_user is None or auth_user.user_type != 3:
+    #     return render(request, 'permission-denied.html')
+    # if auth_user.user_type == 3:
+        rezervs = reserve.objects.all()
+        return render(request, 'rezerv_list2.html', {'rezerv': rezervs})
 
 
 def delete_rezerv(request, id=None):
@@ -544,9 +538,10 @@ def coordinate(request):
     if auth_user.user_type == 2:
         if request.method == 'POST':
             data = request.POST.get('data')
+            print("THIS IS POST DATA ----------------------: ", data)
             doctor.objects.filter(id=auth_user.doctor.id).update(data=data)
-            return render(request, 'coordinate.html', {'data': data})
+            return render(request, 'coordinate.html', {'data2': data})
         else:
             data = auth_user.doctor.data
             print("THIS IS DATA ----------------------: ", data)
-            return render(request, 'coordinate.html', {'data': data})
+            return render(request, 'coordinate.html', {'data2': data})
