@@ -1,5 +1,5 @@
 # Hospital-Managment-System
-[![Generic badge](https://img.shields.io/badge/<Django Version>-<3.00>-<green>.svg)](https://shields.io/)
+[![Generic badge](https://img.shields.io/badge/<Django-Version>-<3.00>-<green>.svg)](https://shields.io/)
 
 Hospital Managment System (Software Engineering Project)
 
