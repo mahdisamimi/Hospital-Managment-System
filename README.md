@@ -1,5 +1,5 @@
 # Hospital-Managment-System
-![PyPI - Django Version](https://img.shields.io/pypi/djversions/django/3.0.json?color=blue&label=Django%20Version&logo=Django&logoColor=red)
+[![Generic badge](https://img.shields.io/badge/<Django Version>-<3.00>-<green>.svg)](https://shields.io/)
 
 Hospital Managment System (Software Engineering Project)
 
